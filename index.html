@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CS655 Password Cracker</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script>
+      var runIndex = 0;
+
+      $(function() {
+        $("form").submit(function(event) {
+          $("#_submit_btn").attr("disabled", "disabled");
+          $("#_submit_btn").val("Processing");
+          password = $("#password").val();
+          hash = $("#hash").val();
+          no_workers = $("#no_workers").val();
+          if (hash && no_workers) {
+            $.get("/break/" + encodeURIComponent(hash) + "/" + no_workers, function(data) {
+              results = data.split(/\r?\n/);
+              $('table tr:last').after('<tr><td>' + hash + '</td><td>' + results[0] + '</td><td>' + no_workers + '</td><td>' + results[1] + '</td></tr>');
+              $("#_submit_btn").removeAttr("disabled");
+              $("#_submit_btn").val("Crack");
+            });
+          }
+          event.preventDefault();
+        });
+      })
+    </script>
+  </head>
+
+  <body>
+	 <h1>CS655 Password Cracker</h1>
+    <form>
+      <label for="hash">MD5Hash</label>
+      <input type="text" id="hash" name="hash">
+      &nbsp;
+      <label for="no_workers">Workers</label>
+      <input type="text" id="no_workers" name="no_workers">
+      &nbsp;
+      <input type="submit" id="_submit_btn" value="Crack">
+    </form>
+
+	 <table>
+		<tr>
+			<th>MD5Hash</th>
+			<th>Solution</th>
+      <th>Workers</th>
+			<th>Time (ms)</th>
+		</tr>
+	 </table>
+  </body>
+</html>
