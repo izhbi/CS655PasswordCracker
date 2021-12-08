@@ -10,9 +10,10 @@ class WorkerServer(BaseHTTPRequestHandler):
     def crack_password(self, hash, startChar, endChar):
         for c in range(ord(startChar), ord(endChar) + 1):
             for e in product(ascii_lowercase,repeat=4):
-                candidate = chr(c) + ''.join(e)
-                if (hashlib.md5(candidate.encode()).hexdigest() == hash.lower()):
-                    return candidate
+                lowerCandidate = chr(c) + ''.join(e)
+                for candidate in map(''.join, product(*zip(lowerCandidate.upper(), lowerCandidate.lower()))):
+                    if (hashlib.md5(candidate.encode()).hexdigest() == hash.lower()):
+                        return candidate
         
         return None
     
