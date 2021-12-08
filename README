@@ -1,0 +1,10 @@
+Setup instructions:
+  0. Setup GENI according to RSpec.
+  1. Run worker.py on all worker nodes.
+  2. Upload worker_list.txt, index.html, manager.py, http-server.py to manager Node.
+  3. Configure worker_list accordinly, put ip addresses of worker nodes that are reachable from the manager node.
+  4. Run 'python3 http-server.py' on manager node.
+  5. Navigate to link outputted by running previous command.
+  
+Dependencies:
+   Python >= 3.6
