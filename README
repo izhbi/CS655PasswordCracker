@@ -8,3 +8,8 @@ Setup instructions:
   
 Dependencies:
    Python >= 3.6
+
+Demo Video: https://drive.google.com/file/d/1ndfb0M68RR1uLqSztsrR2j0bTE0XB8OK/view?usp=sharing
+
+Users are supposed to log in to all worker nodes and run 'worker.py', but for the sake of brevity, we demonstrated it on a single
+worker node.
